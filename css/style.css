@@ -65,7 +65,6 @@ header {
     color: #60a5fa;
 }
 
-
 /* =========================
    HOME
    ========================= */
@@ -124,7 +123,7 @@ header {
 }
 
 .hero h1 span {
-    color: #2563eb;
+    color: #000000;
 }
 
 .hero h2 {
@@ -545,7 +544,7 @@ header {
 
     display: grid;
 
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
 
     gap: 25px;
 }
@@ -609,6 +608,10 @@ header {
 
 .github-icon {
     background: #24292f;
+}
+
+.phone-icon {
+    background: #218838;
 }
 
 .contact-info {
@@ -681,7 +684,7 @@ header {
 
     font-size: 45px;
 
-    font-weight: bold;
+    font-weight: normal;
 
     cursor: pointer;
 
@@ -761,6 +764,7 @@ footer {
     .certificate-content {
         text-align: center;
     }
+
 }
 
 
@@ -840,4 +844,1164 @@ footer {
     .contact-info p {
         font-size: 13px;
     }
+}
+/* =========================================
+   MAJOR PROJECTS PAGE
+========================================= */
+
+.major-projects-header {
+    width: 100%;
+    text-align: center;
+    padding: 60px 20px 40px;
+    background: #111827;
+}
+
+.major-projects-header h1 {
+    color: #ffffff;
+    font-size: 42px;
+    text-align: center;
+    margin: 0 0 15px 0;
+}
+
+.major-projects-header p {
+    color: #dbeafe;
+    font-size: 17px;
+    text-align: center;
+    margin: 0;
+}
+
+/* =========================================
+   PROJECT LIST
+========================================= */
+
+.projects-list {
+    width: min(1100px, calc(100% - 48px));
+    margin: 20px auto 60px;
+}
+
+
+/* =========================================
+   ONE PROJECT = ONE HORIZONTAL BLOCK
+========================================= */
+
+.project-list-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+    min-height: 150px;
+    box-sizing: border-box;
+    border: 1px solid #222222;
+    border-radius: 10px;
+    background: #ffffff;
+    margin-bottom: 25px;
+    padding: 30px;
+    transition: 0.3s ease;
+}
+
+
+/* Hover effect */
+
+.project-list-card:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.10);
+
+}
+
+
+/* =========================================
+   PROJECT TEXT
+========================================= */
+
+.project-list-content {
+    min-width: 0;
+    text-align: left;
+}
+
+
+.project-list-content h2 {
+    color: #000000;
+    font-size: 25px;
+    margin: 0 0 12px 0;
+    overflow-wrap: anywhere;
+}
+
+
+.project-list-content p {
+    color: #333333;
+    font-size: 16px;
+    margin: 0;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   VIEW PROJECT BUTTON
+========================================= */
+
+.view-project-btn {
+    justify-self: end;
+    align-self: center;
+    white-space: nowrap;
+    background: #000000;
+    color: #ffffff;
+    padding: 12px 25px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 15px;
+    transition: 0.3s ease;
+}
+
+
+.view-project-btn:hover {
+
+    background: #333333;
+
+}
+
+
+/* =========================================
+   BACK TO HOME
+========================================= */
+
+.back-home {
+
+    text-align: center;
+
+    padding: 10px 0 50px;
+
+}
+
+
+.back-home a {
+
+    display: inline-block;
+
+    background: #000000;
+
+    color: #ffffff;
+
+    padding: 12px 25px;
+
+    border-radius: 6px;
+
+    text-decoration: none;
+
+}
+
+
+.back-home a:hover {
+
+    background: #333333;
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+    .projects-list {
+        width: calc(100% - 32px);
+    }
+
+
+    .project-list-card {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 18px;
+    }
+
+
+    .view-project-btn {
+        justify-self: center;
+    }
+
+
+    .major-projects-header h1 {
+
+        font-size: 32px;
+
+    }
+
+}
+/* =====================================================
+   PROJECT DETAILS PAGE
+===================================================== */
+
+.major-projects-page,
+.project-details-page {
+    /* Use the same visible pale-blue background as the home page hero. */
+    background-color: #eaf2ff;
+    min-height: 100vh;
+}
+
+.project-detail-header {
+    text-align: center;
+    padding: 60px 20px 35px;
+    background: #111827;
+}
+
+.project-detail-header h1 {
+    color: #ffffff;
+    font-size: 42px;
+    margin: 0;
+}
+
+
+/* =====================================================
+   COMMON SECTION
+===================================================== */
+
+.project-description,
+.objectives-section,
+.ABSTRACT-discription,
+.components-section,
+.project-images,
+.project-videos,
+.components-introduction,
+.pbc-design {
+    width: 85%;
+    max-width: 1100px;
+    margin: 0 auto 45px;
+}
+
+.project-details-page .project-content-section {
+    width: min(1100px, calc(100% - 40px));
+    margin: 0 auto 48px;
+}
+
+.project-details-page .project-content-section > h2 {
+    text-align: center;
+}
+
+.manufacture-process {
+    width: min(1100px, calc(100% - 40px));
+    margin: 0 auto 48px;
+}
+
+.manufacture-process h2 {
+    text-align: left;
+    color: #000000;
+    font-size: 28px;
+    margin: 0 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #000000;
+}
+
+.manufacture-process ol {
+    margin: 0;
+    padding-left: 26px;
+    color: #333333;
+    line-height: 1.8;
+}
+
+.manufacture-process li {
+    margin-bottom: 10px;
+}
+
+.project-details-page .project-content-section > p {
+    max-width: none;
+    margin: 0 0 20px;
+    line-height: 1.8;
+    text-align: justify;
+    background: transparent;
+}
+
+.project-details-page .project-content-section > img,
+.project-details-page .project-content-section > video {
+    display: block;
+    width: 100%;
+    max-width: 850px;
+    max-height: 500px;
+    margin: 24px auto;
+    object-fit: contain;
+    background: transparent;
+}
+
+.project-details-page .project-content-section img {
+    background: transparent;
+    mix-blend-mode: normal;
+}
+
+.project-description h2,
+.objectives-section h2,
+.ABSTRACT-discription h2,
+.components-section h2,
+.project-images h2,
+.project-videos h2,
+.pbc-design h2 {
+    display: inline-block;
+    width: fit-content;
+    color: #000000;
+    font-size: 28px;
+    margin: 0 auto 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #000000;
+}
+
+.project-description p {
+    color: #333333;
+    font-size: 17px;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.ABSTRACT-discription p {
+    color: #333333;
+    font-size: 17px;
+    line-height: 1.8;
+    white-space: pre-line;
+    text-align: justify;
+}
+
+.final-code-section {
+    width: min(1100px, calc(100% - 40px));
+    margin: 0 auto 48px;
+}
+
+.final-code-section .code-note {
+    margin: 0 0 18px;
+    color: #374151;
+    font-size: 15px;
+    line-height: 1.7;
+    text-align: center;
+}
+
+.final-code-block {
+    max-height: 420px;
+    margin: 0;
+    background: #0f172a;
+    color: #e2e8f0;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+    padding: 12px;
+    overflow: auto;
+    overscroll-behavior: contain;
+}
+
+.final-code-block code {
+    display: block;
+    white-space: pre;
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #e2e8f0;
+}
+
+
+/* =====================================================
+   COMPONENTS
+===================================================== */
+
+.components-section ol {
+    margin: 10px 0 20px;
+    padding-left: 60px;
+}
+
+.objectives-section ol {
+    margin: 0;
+    padding-left: 30px;
+}
+
+.components-section li {
+    color: #333333;
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+.objectives-section li {
+    color: #333333;
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+
+/* =====================================================
+   IMAGES
+===================================================== */
+
+.project-images {
+    margin-top: 50px;
+}
+
+.workflow-diagram {
+    padding: 8px 0 12px;
+}
+
+.workflow-steps {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+}
+
+.workflow-step {
+    position: relative;
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr);
+    align-items: start;
+    gap: 18px;
+    padding: 20px 0;
+    background: transparent;
+    border-bottom: 1px solid rgba(17, 24, 39, 0.18);
+}
+
+.workflow-step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: calc(50% - 6px);
+    bottom: -22px;
+    width: 12px;
+    height: 12px;
+    border-right: 2px solid #2563eb;
+    border-bottom: 2px solid #2563eb;
+    transform: rotate(45deg);
+}
+
+.workflow-step-number {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #111827;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.workflow-step-content h3 {
+    margin: 0 0 6px;
+    color: #111827;
+    font-size: 20px;
+}
+
+.workflow-step-content > p,
+.workflow-outcome p,
+.workflow-channel p {
+    margin: 0;
+    color: #444444;
+    line-height: 1.6;
+}
+
+.workflow-outcomes,
+.workflow-channels {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.workflow-outcome,
+.workflow-channel {
+    padding: 12px 14px;
+    border-left: 3px solid #2563eb;
+    background: transparent;
+}
+
+.workflow-outcome strong,
+.workflow-channel strong {
+    color: #111827;
+}
+
+.workflow-outcome p,
+.workflow-channel p {
+    margin-top: 4px;
+}
+
+.project-image-item {
+    width: 100%;
+    max-width: 900px;
+    padding: 18px 0;
+    margin: 0 auto 30px;
+    display: block;
+    text-align: center;
+}
+
+.project-image-item img {
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto 16px;
+    border-radius: 6px;
+    background: transparent;
+}
+
+.project-details-page .project-image-item {
+    text-align: center;
+}
+
+.project-details-page img:not(.expanded-image) {
+    display: block;
+    width: 100%;
+    max-width: 850px;
+    max-height: 500px;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto 16px;
+    border-radius: 6px;
+    background: transparent;
+    cursor: zoom-in;
+}
+
+.project-details-page .project-image-item h3 {
+    text-align: center;
+    margin: 0 0 8px;
+}
+
+.project-details-page .project-image-item p,
+.project-images > p,
+.pbc-design > p {
+    max-width: none;
+    margin: 0;
+    text-align: justify;
+    line-height: 1.8;
+    background: transparent;
+}
+
+.components-introduction {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+}
+
+.components-introduction > h2 {
+    grid-column: 1 / -1;
+    color: #000000;
+    font-size: 28px;
+    margin: 0 0 4px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #000000;
+}
+
+.project-details-page .components-introduction .project-image-item {
+    max-width: none;
+    margin: 0;
+    text-align: center;
+}
+
+.project-details-page .components-introduction .project-image-item img {
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    height: 500px;
+    max-height: none;
+    object-fit: contain;
+    background: transparent;
+    padding: 0;
+    margin: 0 auto 16px;
+}
+
+.project-details-page .components-introduction .project-image-item h3 {
+    display: block;
+    width: 100%;
+    margin: 0 auto 8px;
+    text-align: center;
+}
+
+.project-details-page img:not(.expanded-image):focus-visible {
+    outline: 3px solid #2563eb;
+    outline-offset: 4px;
+}
+
+.visuals {
+    width: min(1100px, calc(100% - 40px));
+    margin: 0 auto 48px;
+}
+
+.visuals > h2 {
+    text-align: center;
+    color: #000000;
+    font-size: 28px;
+    margin: 0 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #000000;
+}
+
+.pcb-image {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 18px;
+    text-align: center;
+}
+
+.pcb-image img {
+    display: block;
+    width: 100%;
+    max-width: 850px;
+    height: auto;
+    margin: 0 auto;
+    object-fit: contain;
+    border-radius: 6px;
+    background: transparent;
+}
+
+.visuals p,
+.pcb-design p {
+    max-width: none;
+    margin: 0 auto 24px;
+    text-align: justify;
+    line-height: 1.8;
+    color: #333333;
+    background: transparent;
+}
+
+.close-image {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+.project-image-item h3 {
+    color: #000000;
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.project-image-item p {
+    color: #444444;
+    font-size: 16px;
+    line-height: 1.6;
+
+    max-width: 850px;
+
+    margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+    .workflow-step {
+        grid-template-columns: 40px minmax(0, 1fr);
+        gap: 12px;
+        padding: 16px;
+    }
+
+    .workflow-step-number {
+        width: 36px;
+        height: 36px;
+    }
+
+    .workflow-outcomes,
+    .workflow-channels {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+
+/* =====================================================
+   VIDEOS
+===================================================== */
+
+.project-videos {
+    margin-top: 50px;
+}
+
+.project-video-item {
+    width: 100%;
+    max-width: 900px;
+    padding: 18px 0;
+    margin: 0 auto 30px;
+    text-align: center;
+}
+
+.project-video-item video {
+    display: block;
+
+    width: 100%;
+    max-width: 850px;
+
+    max-height: 500px;
+
+    margin: 0 auto 20px;
+
+    border-radius: 6px;
+
+    background: transparent;
+}
+
+.project-video-item h3 {
+    color: #000000;
+    font-size: 20px;
+
+    margin: 10px 0;
+}
+
+.project-video-item p {
+    color: #444444;
+
+    font-size: 16px;
+
+    line-height: 1.6;
+
+    max-width: 850px;
+
+    margin: 0 auto;
+    text-align: justify;
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.floating-back-button {
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    z-index: 2000;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: #000000;
+    padding: 4px;
+    text-decoration: none;
+    font-size: 36px;
+    font-weight: normal;
+    line-height: 1;
+    transition: 0.3s ease;
+}
+
+.floating-back-button:hover {
+    color: #333333;
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .project-detail-header {
+        padding: 40px 15px 25px;
+    }
+
+    .project-detail-header h1 {
+        font-size: 32px;
+    }
+
+    .project-description,
+    .objectives-section,
+    .ABSTRACT-discription,
+    .components-section,
+    .project-images,
+    .project-videos,
+    .components-introduction,
+    .pbc-design {
+        width: 90%;
+    }
+
+    .project-description h2,
+    .objectives-section h2,
+    .ABSTRACT-discription h2,
+    .components-section h2,
+    .project-images h2,
+    .project-videos h2,
+    .pbc-design h2 {
+        font-size: 24px;
+    }
+
+    .project-image-item,
+    .project-video-item {
+        padding: 15px;
+    }
+
+    .project-details-page .components-introduction .project-image-item {
+        padding: 0;
+    }
+
+    .components-introduction {
+        grid-template-columns: 1fr;
+        width: 90%;
+    }
+
+    .components-introduction > h2 {
+        font-size: 24px;
+    }
+
+}
+
+/* =====================================================
+   MAJOR PROJECTS HOME CALLOUT
+===================================================== */
+
+.major-projects-home {
+    background: #eaf2ff;
+    padding: 0 30px 80px;
+}
+
+.major-project-card {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 35px;
+
+    background: #ffffff;
+    border: 1px solid #222222;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+
+    text-align: center;
+}
+
+.major-project-card h2 {
+    color: #000000;
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.major-project-card p {
+    max-width: 700px;
+    margin: 0 auto 25px;
+    color: #333333;
+    font-size: 17px;
+}
+
+.major-project-btn {
+    display: inline-block;
+    background: #000000;
+    color: #ffffff;
+    padding: 12px 25px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 15px;
+    transition: 0.3s ease;
+}
+
+.major-project-btn:hover {
+    background: #333333;
+}
+
+@media (max-width: 768px) {
+    .major-projects-home {
+        padding: 0 20px 60px;
+    }
+
+    .major-project-card {
+        padding: 25px 20px;
+    }
+
+    .major-project-card h2 {
+        font-size: 28px;
+    }
+}/* =========================
+   PCB DESIGN SPECIFICATIONS
+   ========================= */
+
+.pcb-specifications {
+    width: 90%;
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    text-align: center;
+}
+
+
+/* =========================
+   HEADING
+   ========================= */
+
+.pcb-specifications h2 {
+    display: inline-block;
+    width: fit-content;
+    text-align: center;
+    color: #000000;
+    font-size: 28px;
+    margin: 0 auto 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #000000;
+}
+
+
+/* =========================
+   INTRODUCTION
+   ========================= */
+
+.pcb-intro,
+.pcb-specifications p {
+    text-align: justify;
+    color: #333333;
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 25px;
+    background: transparent;
+}
+
+
+/* =========================
+   TABLE CONTAINER
+   ========================= */
+
+.table-container {
+    width: min(900px, 100%);
+    margin: 0 auto 24px;
+    overflow-x: auto;
+}
+
+
+/* =========================
+   PCB TABLE
+   ========================= */
+
+.pcb-table {
+    width: 100%;
+    table-layout: fixed;
+    margin: 0 auto;
+    border-collapse: collapse;
+    font-size: 16px;
+    border: 2px solid #000000;
+    background: #ffffff;
+}
+
+.pcb-table thead th {
+    font-size: 18px;
+}
+
+
+/* =========================
+   TABLE HEADER & CELLS
+   ========================= */
+
+.pcb-table th,
+.pcb-table td {
+    padding: 14px 18px;
+    border: 2px solid #000000;
+    text-align: left;
+    vertical-align: middle;
+}
+
+
+/* =========================
+   TABLE HEADER
+   ========================= */
+
+.pcb-table th {
+    background: #eaf2ff;
+    color: #000000;
+    font-weight: 700;
+    text-align: left;
+}
+
+
+/* =========================
+   TABLE DATA
+   ========================= */
+
+.pcb-table td {
+    background: #ffffff;
+    color: #222222;
+}
+
+
+/* =========================
+   HOVER EFFECT
+   ========================= */
+
+.pcb-table tr:hover td {
+
+    background: #f2f6fb;
+}
+
+
+/* =========================
+   FIRST COLUMN
+   ========================= */
+
+.pcb-table th:first-child,
+.pcb-table td:first-child {
+    width: 42%;
+    font-weight: 600;
+    color: #111111;
+    text-align: left;
+}
+
+
+/* =========================
+   SECOND COLUMN
+   ========================= */
+
+.pcb-table th:nth-child(2),
+.pcb-table td:nth-child(2) {
+    width: 58%;
+    font-weight: 500;
+    text-align: left;
+}
+
+
+/* =========================
+   MOBILE RESPONSIVE
+   ========================= */
+
+@media (max-width: 600px) {
+
+    .pcb-specifications {
+        width: 95%;
+        padding: 0;
+        margin: 30px auto;
+    }
+
+
+    .pcb-specifications h2 {
+        font-size: 23px;
+    }
+
+
+    .pcb-intro,
+    .pcb-specifications p {
+        font-size: 14px;
+        text-align: justify;
+    }
+
+
+    .project-image-item {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .pcb-table {
+        font-size: 14px;
+    }
+
+
+    .pcb-table th,
+    .pcb-table td {
+        padding: 10px;
+    }
+
+}
+/* =========================
+   PCB MANUFACTURING VIDEO
+   ========================= */
+
+.pcb-video-section {
+    width: min(1100px, calc(100% - 40px));
+    margin: 0 auto 48px;
+}
+
+/* HEADING */
+
+.pcb-video-section h2 {
+    text-align: center;
+    color: #000000;
+    font-size: 28px;
+    margin: 0 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #000000;
+}
+
+body.project-details-page h1,
+body.project-details-page h2,
+body.project-details-page h3 {
+    display: block;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+/* VIDEO */
+
+.pcb-video-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.pcb-video-container video {
+    display: block;
+    width: 100%;
+    max-width: 850px;
+    max-height: 500px;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    object-fit: contain;
+
+    border-radius: 10px;
+    border: 2px solid #000000;
+
+    background: #000000;
+    margin: 0 auto;
+}
+
+/* DESCRIPTION */
+
+.pcb-video-description {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.pcb-video-description p {
+    color: #333333;
+    font-size: 16px;
+    line-height: 1.7;
+
+    text-align: justify;
+
+    margin-bottom: 15px;
+}
+
+/* MOBILE RESPONSIVE */
+
+@media (max-width: 600px) {
+
+    .pcb-video-section h2 {
+        font-size: 23px;
+    }
+
+    .pcb-video-container video {
+        width: 100%;
+    }
+
+    .pcb-video-description {
+        width: 100%;
+    }
+
+    .pcb-video-description p {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+}
+
+.adafruit-dashboard-gallery {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    margin-top: 28px;
+}
+
+.adafruit-dashboard-gallery figure {
+    width: 100%;
+    max-width: 850px;
+    margin: 0;
+    justify-self: center;
+}
+
+.adafruit-dashboard-gallery img {
+    display: block;
+    width: 100%;
+    max-width: 850px;
+    height: auto;
+    border-radius: 8px;
+}
+
+.adafruit-dashboard-gallery figcaption {
+    margin-top: 8px;
+    color: #444444;
+    font-size: 14px;
+    line-height: 1.5;
 }

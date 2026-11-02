@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Project Details | Pradeep Kammar</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+
+<body class="project-details-page">
+
+
+    <!-- =====================================
+         PROJECT TITLE
+    ====================================== -->
+
+    <section class="project-detail-header">
+
+        <h1 id="project-title">
+         Saferide Ai gig riders safety platform   
+        </h1>
+
+    </section>
+
+    <section class="project-unavailable project-content-section" id="project-unavailable" hidden>
+        <h2>Project Overview</h2>
+        <p id="project-overview">Project details are not available.</p>
+    </section>
+
+    <!-- =====================================
+         PROJECT DESCRIPTION
+    ====================================== -->
+
+    <section class="project-description project-content-section">
+
+        <h2>Problem Statement</h2>
+
+        <p id="project-description">
+Gig-economy workers, including delivery riders, cab drivers, and field service workers, often spend long hours on the road and may work alone. Extended travel, time pressure, and fatigue can increase their risk of road accidents. If a rider is involved in an accident and is unable to report the incident, emergency response may be delayed. Existing safety procedures often depend on the rider or a bystander manually reporting an incident.
+
+An automated IoT-based safety system can help address this gap by monitoring relevant sensor data, identifying conditions associated with a potential accident, determining the rider's location, and sharing the incident information with responsible personnel. In addition, gig platforms may require a centralized monitoring system through which rider safety information and incident updates can be observed remotely. This project addresses these requirements by developing an IoT-based AI Gig Rider Safety Platform using an ESP32, HMC5883L Triple-axis Magnetometer, and NEO-6M GPS module. When the configured safety or accident-detection condition is detected, the ESP32 obtains the rider's GPS coordinates, generates a location link, and sends the incident information and location to the AI_GIG_SAFETY_RIDER Telegram bot. The system also sends monitoring data to an Adafruit IO dashboard, enabling remote monitoring of the rider's safety status and incident information.
+        </p>
+
+    </section>
+
+    <section class="objectives-section project-content-section">
+
+
+<!-- =====================================
+         ABSTRACT
+    ====================================== -->
+
+        <h2>Objectives</h2>
+
+        <ol>
+
+             <li>
+           To develop an embedded monitoring platform using the ESP32 DevKit V1. 
+        </li>
+
+        <li>
+          To interface a QMC5883L-compatible three-axis magnetometer and read magnetic-field 
+values through the I²C interface. 
+        </li>
+
+        <li>
+            To implement a threshold-based routine that identifies selected changes in sensor 
+readings. 
+        </li>
+
+        <li>
+           To interface the NEO-6M GPS module with the ESP32 and obtain latitude and longitude 
+when a valid fix is available.
+        </li>
+
+        <li>
+           To generate a Google Maps location link from the received GPS coordinates. 
+        </li>
+
+        <li>
+            To provide local alert indications through an LED and buzzer. 
+        </li>
+
+
+        <li> To configure a Telegram bot for sending programmed incident notifications and location 
+information. 
+</li>
+<li>
+    To design the project circuit schematic and PCB layout using Easy EDA. 
+</li>
+<li>
+    To fabricate and assemble a custom PCB using Copper CAM and the Roland DG SRM
+20 milling machine.
+</li>
+<li>
+    To perform controlled functional checks of the sensor interface, GPS module, 
+notification system, and cloud dashboard. 
+</li>
+
+        </ol>
+
+    </section>
+
+     <!-- =====================================
+         ABSTRACT
+    ====================================== -->
+
+    <section class="ABSTRACT-discription project-content-section">
+
+        <h2>ABSTRACT</h2>
+
+        <p id="ABSTRACT-description">
+           Delivery riders, cab drivers, and other gig-economy workers may spend long hours on the road, often without immediate support. If a rider is involved in an accident and cannot manually report the incident, the delay in communicating the rider's condition and location can affect the response process. This project presents an IoT-based AI Gig Rider Safety Platform designed to monitor rider safety conditions, obtain location information, and provide remote alerts and monitoring.
+
+          The system uses an ESP32 DevKit V1 as the main controller, an HMC5883L Triple-axis Magnetometer Board for obtaining magnetic-field and directional information, and a NEO-6M GPS module for acquiring the rider's geographical coordinates. A 12 V, 2 A adapter and LM2596 DC-DC buck converter are used to provide the required power supply, while a buzzer provides a local audible indication during an alert condition. The ESP32 processes the sensor information according to the configured safety-detection criteria. When a potential accident or abnormal condition is detected, the system obtains the rider's latitude and longitude from the GPS module and generates a Google Maps location link.
+ 
+          The incident information and location link are then transmitted through the Internet to the AI_GIG_SAFETY_RIDER Telegram bot, allowing the configured Telegram recipient to receive the alert remotely. At the same time, relevant system information is transmitted to Adafruit IO, where it is displayed on a centralized dashboard for remote monitoring. The system was assembled on a custom PCB and tested under controlled conditions to verify sensor operation, GPS location acquisition, Telegram message delivery, and Adafruit IO dashboard updates. The developed platform provides an integrated approach for rider safety monitoring, automatic incident notification, and location sharing.
+        </p>
+    </section>
+    <!-- =====================================
+         COMPONENTS USED
+    ====================================== -->
+
+    <section class="components-section project-content-section">
+
+        <h2>Components Used</h2>
+
+        <ol>
+
+            <li>ESP32 Development Board CP2102 WiFi bluetooth ultra-low power consumption dual-core</li>
+
+            <li>NEO-6M GPS Module with Antenna</li>
+
+            <li>HMC5883L Triple-Axis Magnetometer Module</li>
+
+            <li>LED</li>
+
+            <li>LM2596 Buck Converter Module</li>
+
+             <li>12V 2AMP Adapter</li>
+
+              <li>DC Power jack</li>
+
+              <li>Buzzer</li>
+              
+              
+              <li>PCB</li>
+
+        </ol>
+
+    </section>
+
+    <!-- =====================================
+         SYSTEM WORKING FLOW
+    ====================================== -->
+    <section class="project-description project-content-section">
+        <h2>Working Flow of the Rider Safety System</h2>
+
+        <div class="project-image-item">
+            <img src="images/system-working-flow.png"
+                 style="max-width: 850px;"
+                 alt="System workflow diagram for the AI Gig Rider Safety Platform showing power-up, sensor monitoring, incident detection, alerts, GPS, Telegram and Adafruit IO communication">
+        </div>
+
+        <ol>
+            <li>
+                <strong>System initialization:</strong> When the power supply is switched ON, the ESP32 DevKit V1 starts operating. It initializes the magnetometer, GPS module, LED, buzzer, Wi-Fi connection, Telegram communication, and MQTT connection to Adafruit IO.
+            </li>
+
+            <li>
+                <strong>Sensor data acquisition:</strong> The magnetometer continuously provides three-axis magnetic-field readings along the X, Y, and Z axes. The ESP32 reads these values and checks for changes in the readings.
+            </li>
+
+            <li>
+                <strong>Possible incident detection:</strong> The ESP32 compares the sensor readings against the predefined threshold condition in the program (<code>SHAKE_THRESHOLD = 800</code>). If the condition is not satisfied, the system continues monitoring. If the condition is satisfied, a possible incident is detected.
+            </li>
+
+            <li>
+                <strong>Local alert indication:</strong> After the threshold condition is triggered, the ESP32 activates the LED and buzzer to provide a local indication of the detected event.
+            </li>
+
+            <li>
+                <strong>GPS location acquisition:</strong> The ESP32 communicates with the NEO-6M GPS module to obtain the rider's geographical coordinates. The coordinates are used only when a valid GPS fix is available.
+            </li>
+
+            <li>
+                <strong>Google Maps location generation:</strong> When valid latitude and longitude values are available, the ESP32 generates a Google Maps link to help identify the approximate geographical location of the rider.
+            </li>
+
+            <li>
+                <strong>Telegram notification:</strong> The ESP32 prepares an incident notification containing the available GPS information. The Telegram bot sends this notification to the configured Telegram recipient. If GPS coordinates are unavailable, the alert can be sent without a location link.
+            </li>
+
+            <li>
+                <strong>MQTT communication and Adafruit IO monitoring:</strong> The ESP32 uses MQTT communication to publish the rider's location and status information to the configured Adafruit IO feeds. The dashboard provides a remote view of the available information.
+            </li>
+
+            <li>
+                <strong>Continuous monitoring:</strong> After the alerting and communication operations, the system continues monitoring the magnetometer readings for subsequent threshold-triggered events.
+            </li>
+        </ol>
+    </section>
+
+ <!-- =====================================
+         components introduction
+    ====================================== -->
+    <section class="components-introduction project-content-section">
+
+    <h2>Brief Introduction to the Components</h2>
+
+        <div class="project-image-item">
+  <h3>ESP32 Development Board</h3>
+              <img src="images/esp32.jpg"
+                  alt="ESP32 Development Board">
+
+            
+
+                <p>The ESP32 DevKit V1 acts as the main controller of the AI Gig Rider Safety Platform. It continuously collects motion and directional data from the HMC5883L Triple-Axis Magnetometer through the I2C interface and processes the sensor readings to identify conditions that meet the defined safety or crash-detection criteria. When a potential accident or abnormal event is detected, the ESP32 obtains the rider's current location from the NEO-6M GPS module through a UART interface. The GPS data is processed to extract the latitude and longitude coordinates and generate a Google Maps location link corresponding to the rider's position.
+
+After obtaining the location information, the ESP32 communicates with the SIM900A GSM module through another UART connection to transmit the emergency information. The system can send an SMS containing the rider's location link to the configured emergency contact. At the same time, the location and relevant safety information can be transmitted to a Telegram bot, allowing the alert information to be received remotely. The system also sends the required monitoring data to Adafruit IO, where the information can be displayed on a dashboard for real-time monitoring and observation of the rider's safety status.</p>
+
+        </div>
+
+<H2></H2>
+        <div class="project-image-item">
+
+            <h3>NEO-6M GPS Module</h3>
+              <img src="images/neo6m.jpg"
+                  alt="NEO-6M GPS Module">
+
+
+            <p>The NEO-6M receives signals from GPS satellites and provides the rider’s location. It sends standard NMEA data to the ESP32 over a serial connection, where the latitude and longitude are extracted. When a crash is confirmed, the coordinates are formatted as a Google Maps link to help responders locate the rider.</p>
+
+        </div>
+<H2></H2>
+        <div class="project-image-item">
+            
+            <h3>HMC5883L Triple-axis Magnetometer Board</h3>
+
+              <img src="images/triple.jpg"
+                  alt="HMC5883L Triple-axis Magnetometer Board">
+
+            
+            <p>, the HMC5883L Triple-Axis Magnetometer is used to detect the orientation and direction of the rider's vehicle. The sensor measures the magnetic field along the X, Y, and Z axes and communicates with the ESP32 through the I²C communication protocol. By processing the X and Y magnetic-field values, the ESP32 can determine the approximate heading or direction in which the vehicle is moving, such as North, South, East, or West. This directional information can be combined with the NEO-6M GPS module, which provides the rider's location and speed, and the MPU6050, which provides motion and acceleration information. In the proposed safety platform, the magnetometer can therefore help monitor changes in vehicle orientation and provide additional movement information to the ESP32. The collected sensor data can be processed by the system to improve rider-safety monitoring and support the detection and analysis of abnormal riding conditions. The magnetometer should be positioned away from motors, relays, speakers, and high-current wires because magnetic interference can affect its readings</p>
+
+        </div>
+<H2></H2>
+        <div class="project-image-item">
+             <h3>LM2596 Buck Converter Module</h3>
+            <img src="images/lm2596.jpg"
+                 alt="LM2596 Buck Converter Module">
+         
+            <p>The LM2596 is a switching buck converter that reduces the 12 V input to a lower voltage for the system’s electronics. It helps supply the SIM900A, which can draw brief bursts of current during cellular transmissions. A suitable power supply and converter help reduce voltage drops that could otherwise cause the system to reset while sending an alert.</p>
+
+        </div>
+<H2></H2>
+        <div class="project-image-item">
+            <h3>DC Power Supply Module for DC Power Adapter</h3>
+            <img src="images/powerjack.jpg"
+                 alt="DC Power Supply Module for DC Power Adapter">
+           
+            <p>The DC Power Supply Module provides a stable power source for the system. It ensures consistent voltage levels for the various components, including the ESP32 and SIM900A, which are sensitive to power fluctuations.</p>
+
+        </div>
+        <H2></H2>
+        <div class="project-image-item"> 
+            <h3>12V 2A DC Adapter </h3>
+            <img src="images/adapter.jpg"
+                 alt="12V 2A DC Adapter">
+           
+            <p>The DC Power Supply Module provides a stable power source for the system. It ensures consistent voltage levels for the various components, including the ESP32 and SIM900A, which are sensitive to power fluctuations.</p>
+
+        </div>
+        <h2></h2>
+         <div class="project-image-item"> 
+            <h3>buzzer </h3>
+            <img src="images/buzzer.jpg"
+                 alt="Buzzer">
+           
+            <p>The Buzzer is used to provide audible alerts and notifications within the AI Gig Rider Safety Platform. It is connected to the ESP32 DevKit V1 and can be controlled via GPIO pins to produce different sounds for various events, such as emergency alerts or system status updates.</p>
+
+        </div>
+
+        <h2></h2>
+        <p>As part of the initial development of the AI Gig Rider Safety Platform, each hardware component was individually tested and verified for proper operation with the ESP32 DevKit V1. The ESP32 was configured as the main processing and control unit for interfacing with the different modules. The NEO-6M GPS module was tested for accurate location data acquisition, while the HMC5883L triple-axis magnetometer was evaluated for directional and heading information. The LM2596 DC-DC buck converter was tested to provide a stable and regulated power supply for the connected components. The DC power jack was also checked for reliable power input and connectivity. These tests helped confirm the compatibility, functionality, and reliable communication of each component before integrating them into the complete project system.</p>
+
+    </section>
+
+     <!-- =====================================
+         pcb design
+    ====================================== -->
+    <section class="pbc-design project-content-section">
+        
+      <h2>Hardware Design and Implementation</h2>
+
+    <p>To improve the reliability, compactness, and organization of the hardware, a dedicated Printed Circuit Board (PCB) was designed for the AI Gig Rider Safety Platform. The PCB approach was selected to reduce the clumsiness of individual wire connections and provide a structured interconnection between the ESP32, power supply, sensors, and other peripherals. EasyEDA was used for schematic design, PCB layout development, routing, and 3D visualization of the board. The final PCB was designed with an overall dimension of 99 mm × 94.14 mm, providing sufficient space for component placement and routing.</p>
+      
+   
+
+        <h2>PCB Design and Layout</h2>
+
+        <h1 style="margin-bottom: 24px;">1. Circuit Schematic Design</h1>
+
+        <div class="pcb-image">
+          
+            <img src="images/schematic.jpg"
+                 alt="Schematic diagram of the AI Gig Rider Safety Platform showing the ESP32, sensors, GSM module, and power supply connections"> 
+        </div>
+        
+        <p>The first stage involved developing the complete circuit schematic in EasyEDA. The ESP32 DevKit V1 was selected as the main controller, with the required sensor and power interfaces connected to the appropriate GPIO and power pins. The schematic also includes the DC power input, LM2596 DC-DC buck converter, sensor interface, buzzer, and connector headers. Power and signal connections were carefully arranged to ensure proper communication between the modules and to simplify the transition from the schematic to the PCB layout.</p>
+    
+        <h1 style="margin-bottom: 24px;">2. PCB Layout Design</h1>
+        <div class="pcb-image">
+
+            <img src="images/layout.jpg"
+                 alt="PCB layout of the AI Gig Rider Safety Platform showing the placement of components and routing of traces">
+        </div>
+                 <p>After completing the schematic, the circuit was converted into a PCB layout in EasyEDA. The components were positioned according to their functional requirements while considering accessibility, wiring space, and overall board organization. Copper tracks were routed between the ESP32, sensor connections, power section, buzzer, and other interfaces. The layout was designed to minimize unnecessary crossings and reduce the excessive wiring associated with a conventional breadboard-based setup. The final PCB outline was maintained at 99 mm × 94.14 mm.</p>
+        
+
+         
+        <h1 style="margin-bottom: 24px;">3. PCB 3D Visualization</h1>
+        <div class="pcb-image">
+            <img src="images/3dd.jpg"
+                 alt="PCB layout of the AI Gig Rider Safety Platform showing the placement of components and routing of traces">
+                 </div>
+                 <p>A 3D model of the designed PCB was generated using EasyEDA to verify the physical arrangement of the components before fabrication. The 3D view provides a representation of the ESP32, LM2596 buck converter, connectors, sensor interface, buzzer, and DC power input mounted on the board. This visualization helped in checking component placement, board dimensions, clearances, and the overall feasibility of the hardware design.</p>
+    
+
+</section>
+
+<!-- =========================
+     PCB DESIGN SPECIFICATIONS
+     ========================= -->
+
+<section class="pcb-specifications">
+
+    <h2>PCB Design Specifications</h2>
+
+    <p class="pcb-intro">
+        The following specifications were used during the PCB design and
+        routing process in EasyEDA for the AI Gig Rider Safety Platform.
+    </p>
+
+    <div class="table-container">
+
+        <table class="pcb-table">
+
+            <thead>
+                <tr>
+                    <th>PCB Parameter</th>
+                    <th>Dimension</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>PCB Length</td>
+                    <td>99 mm</td>
+                </tr>
+
+                <tr>
+                    <td>PCB Width</td>
+                    <td>94.14 mm</td>
+                </tr>
+
+                <tr>
+                    <td>Track / Routing Width</td>
+                    <td>1.00 mm</td>
+                </tr>
+
+                <tr>
+                    <td>Grid Size</td>
+                    <td>2.54 mm</td>
+                </tr>
+
+                <tr>
+                    <td>Snap Size</td>
+                    <td>0.127 mm</td>
+                </tr>
+
+                <tr>
+                    <td>Routing Angle</td>
+                    <td>45°</td>
+                </tr>
+
+                <tr>
+                    <td>PCB Thickness</td>
+                    <td>1.6 mm</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+   <section class="pcb-specifications">
+    <h2>PCB Manufacturing Using CopperCAM and SRM-20</h2>
+    <p>After completing the PCB schematic and layout design in EasyEDA, the finalized PCB design was prepared for manufacturing using CopperCAM. The Gerber and drill files were imported into CopperCAM to generate the required machining paths for the PCB fabrication process. The manufacturing process was divided into different operations, including copper-layer engraving, hatching, drilling, and edge cutting. The engraving operation was used to remove unwanted copper around the designed tracks and isolate the electrical paths. Hatching was applied to clear the required copper areas systematically and improve the separation between tracks. The drilling operation was used to create the required through-holes for component leads and connector mounting. Finally, the edge-cut operation was configured to define and separate the PCB from the remaining copper-clad board. The generated machining data was then used with the Roland DG SRM-20 PCB milling machine for physical fabrication. This process converted the digital PCB design into a fabricated board while maintaining the required track layout, holes, and board outline.</p>
+
+</section>
+
+<section class="manufacture-process project-content-section">
+
+        <h2>Manufacturing Process</h2>
+
+        <ol>
+
+            <li>Gerber File Preparation – The finalized PCB design from EasyEDA was prepared as manufacturing files.</li>
+
+            <li>CopperCAM Import – The Gerber and drill files were loaded into CopperCAM for tool-path generation. </li>
+
+            <li>Engraving – Copper was removed around the tracks to electrically isolate the designed circuit paths.</li>
+
+            <li>Hatching – The required copper regions were cleared using a hatch/tool-path pattern.</li>
+
+            <li>Drilling – Through-holes were generated according to the drill file for component and connector mounting.</li>
+
+             <li>Edge Cutting – The outer PCB boundary was machined to obtain the required board dimensions.</li>
+
+              <li>SRM-20 Milling – The generated machining paths were transferred to the SRM-20 PCB milling machine for fabrication.</li>
+              
+              
+              <li>Final Inspection – The fabricated PCB was visually checked for track continuity, drilling accuracy, and proper edge cutting before component assembly.</li>
+
+        </ol>
+
+    </section>
+
+    <section class="pcb-specifications project-content-section">
+        <h2>PCB Engraving Bit</h2>
+
+        <p>
+            A pointed, conical engraving bit marked G8471 was used for the
+            engraving and hatching operations. Its 0.20 mm tip supports fine
+            cutting for accurately isolating narrow PCB tracks, while the 30°
+            cutting angle allows controlled copper removal. The 3.00 mm shank
+            fits the milling machine holder. Used with the Roland DG SRM-20,
+            the bit removed unwanted copper to create electrical isolation
+            between the designed PCB tracks.
+        </p>
+
+        <figure class="pcb-image">
+            <img src="images/engraving-bit.png"
+                 alt="G8471 pointed conical PCB engraving bit marked 0.20 mm, 30 degrees, and 3.00 mm">
+            <figcaption>G8471 engraving bit used for PCB engraving and hatching.</figcaption>
+        </figure>
+
+        <div class="table-container">
+            <table class="pcb-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Specification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tool Type</td>
+                        <td>PCB Engraving Bit</td>
+                    </tr>
+                    <tr>
+                        <td>Tool Marking</td>
+                        <td>G8471</td>
+                    </tr>
+                    <tr>
+                        <td>Tip Size</td>
+                        <td>0.20 mm</td>
+                    </tr>
+                    <tr>
+                        <td>Cutting Angle</td>
+                        <td>30°</td>
+                    </tr>
+                    <tr>
+                        <td>Shank Diameter</td>
+                        <td>3.00 mm</td>
+                    </tr>
+                    <tr>
+                        <td>Application</td>
+                        <td>PCB Engraving and Hatching</td>
+                    </tr>
+                    <tr>
+                        <td>Machine</td>
+                        <td>Roland DG SRM-20</td>
+                    </tr>
+                    <tr>
+                        <td>Purpose</td>
+                        <td>Copper removal and track isolation</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="pcb-specifications project-content-section">
+        <h2>PCB Edge-Cutting and Drilling Tool</h2>
+
+        <p>
+            An AXIS E2661 two-flute (2F) end mill was mounted on the Roland DG
+            SRM-20 for PCB edge-cutting and drilling operations. Guided by the
+            machining paths generated in CopperCAM, the tool followed the
+            programmed outer board boundary to separate the fabricated PCB
+            from the remaining copper-clad material. The programmed paths
+            were also used to make the required holes for component mounting
+            and connections, maintaining their specified positions and
+            dimensions.
+        </p>
+
+        <figure class="pcb-image">
+            <img src="images/edge-cutting-end-mill.png"
+                 alt="AXIS E2661 two-flute end mill marked 0.80 mm cutting diameter, 2.40 mm cutting length, and 3.00 mm shank">
+            <figcaption>AXIS E2661 end mill used for PCB edge cutting and drilling.</figcaption>
+        </figure>
+
+        <div class="table-container">
+            <table class="pcb-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Specification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Manufacturer</td>
+                        <td>AXIS</td>
+                    </tr>
+                    <tr>
+                        <td>Tool Type</td>
+                        <td>2-Flute (2F) End Mill, Model E2661</td>
+                    </tr>
+                    <tr>
+                        <td>Cutting Diameter</td>
+                        <td>0.80 mm</td>
+                    </tr>
+                    <tr>
+                        <td>Shank Diameter</td>
+                        <td>3.00 mm</td>
+                    </tr>
+                    <tr>
+                        <td>Cutting Length (Flute Length)</td>
+                        <td>2.40 mm</td>
+                    </tr>
+                    <tr>
+                        <td>Total Length</td>
+                        <td>38 mm</td>
+                    </tr>
+                    <tr>
+                        <td>Machine</td>
+                        <td>Roland DG SRM-20</td>
+                    </tr>
+                    <tr>
+                        <td>Application</td>
+                        <td>PCB edge cutting and drilling</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="pcb-specifications manufacture-parameters">
+        <h2>Manufacturing Parameters</h2>
+
+        <div class="table-container">
+            <table class="pcb-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Engraving Speed</td>
+                        <td>5 mm/s</td>
+                    </tr>
+                    <tr>
+                        <td>Cutting Speed</td>
+                        <td>2 mm/s</td>
+                    </tr>
+                    <tr>
+                        <td>Hatching Speed</td>
+                        <td>5 mm/s</td>
+                    </tr>
+                    <tr>
+                        <td>Boring/Drilling Speed</td>
+                        <td>2 mm/s</td>
+                    </tr>
+                    <tr>
+                        <td>Coordinate Reference</td>
+                        <td>South-West Corner</td>
+                    </tr>
+                    <tr>
+                        <td>Z-Zero Reference</td>
+                        <td>Circuit Surface</td>
+                    </tr>
+                    <tr>
+                        <td>Manufacturing Platform</td>
+                        <td>CopperCAM</td>
+                    </tr>
+                    <tr>
+                        <td>PCB Milling Machine</td>
+                        <td>Roland DG SRM-20</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> 
+
+    </section>
+
+      <section class="visuals">
+        <h2 style="margin-bottom: 24px;">Engraving and Hatching Tool Paths</h2>
+        <div class="pcb-image">
+          
+            <img src="images/pp4.jpg"
+                 alt="Schematic diagram of the AI Gig Rider Safety Platform showing the ESP32, sensors, GSM module, and power supply connections"> 
+        </div>
+        <p>This image shows the combined engraving and hatching tool paths generated in CopperCAM. The highlighted paths indicate the areas to be machined for isolating the copper tracks and removing unwanted copper regions from the PCB surface.</p>
+        
+         <h2 style="margin-bottom: 24px;">CopperCAM Gerber / Engraving View</h2>
+          <div class="pcb-image">
+            
+            <img src="images/pp1.jpg"
+                 alt="Schematic diagram of the AI Gig Rider Safety Platform showing the ESP32, sensors, GSM module, and power supply connections">
+          </div>
+           <p>This image shows the imported top-layer Gerber file in CopperCAM, representing the copper tracks and connection paths of the designed PCB. The displayed tool paths define the areas where copper material needs to be removed during the engraving process.</p>
+
+            <h2 style="margin-bottom: 24px;">CopperCAM Machining Output Settings</h2>
+          <div class="pcb-image">
+            
+            <img src="images/pp3.jpg"
+                 alt="Schematic diagram of the AI Gig Rider Safety Platform showing the ESP32, sensors, GSM module, and power supply connections">
+          </div>
+          <p>This image shows the CopperCAM machining output configuration used for PCB fabrication. The engraving, cutting, hatching, and boring speeds are configured according to the selected machining operations. The coordinate reference and circuit-surface Z-zero are also defined before generating the machining data.</p>
+
+           <h2 style="margin-bottom: 24px;">Drill File Visualization</h2>
+          <div class="pcb-image">
+            
+            <img src="images/pp2.jpg"
+                 alt="Schematic diagram of the AI Gig Rider Safety Platform showing the ESP32, sensors, GSM module, and power supply connections">
+          </div>
+          <p>This image represents the drilling layout generated from the PCB drill file in CopperCAM. The black circular points indicate the locations of the required holes for component leads, connectors, and other through-hole connections on the PCB.</p>
+
+           <h2 style="margin-bottom: 24px;">PCB Fabrication Process</h2>
+          <div class="pcb-image">
+            
+            <img src="images/pp5.jpg"
+                 alt="Schematic diagram of the AI Gig Rider Safety Platform showing the ESP32, sensors, GSM module, and power supply connections">
+          </div>
+          <p>The image illustrates the PCB manufacturing setup in which the generated CopperCAM machining data is used to control the milling process. The SRM-20 performs the programmed operations to fabricate the PCB according to the designed circuit layout and board outline.</p>
+
+        </section>
+
+        <!-- =========================
+     PCB MANUFACTURING VIDEO
+     ========================= -->
+
+<section class="pcb-video-section">
+
+    <h2>PCB Manufacturing Process visuals</h2>
+
+    <div class="pcb-video-container">
+
+        <video controls>
+            <source src="videos/pcb.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+    </div>
+
+    <div class="pcb-video-description">
+<p>This video demonstrates the PCB manufacturing process carried out for the AI Gig Rider Safety Platform using the Roland DG SRM-20 milling machine. The manufacturing process begins with copper engraving, where unwanted copper is removed to isolate the designed circuit tracks. The hatching operation then clears the required copper areas according to the generated CopperCAM tool paths. Next, drilling is performed to create the required holes for component mounting and electrical connections. Finally, the edge-cutting operation defines the outer boundary of the PCB and separates the fabricated board from the remaining copper-clad material. The video shows the complete sequence from machining setup to PCB fabrication.</p>
+    </div>
+
+    </section>
+
+    <section class="pcb-specifications project-content-section">
+        <h2>Final Fabricated PCB</h2>
+
+        <figure class="pcb-image">
+            <img src="images/track.jpg"
+                 alt="Final fabricated PCB for the AI Gig Rider Safety Platform showing copper tracks and mounted component layout">
+            <p>
+                This image shows the final fabricated PCB developed for the AI Gig Rider Safety Platform. The completed board includes the required copper tracks, component mounting holes, and routed connections as designed in EasyEDA. The fabricated PCB provides a compact and organized platform for mounting and integrating the project components for further system testing.
+            </p>
+              <img src="images/track.jpg"
+                 alt="Final fabricated PCB for the AI Gig Rider Safety Platform showing copper tracks and mounted component layout">    
+                 <p>
+                Visuals of the PCB Component Assembly Process for the AI Gig Rider Safety Platform with my teamates. The components were carefully soldered onto the fabricated PCB, ensuring proper alignment and secure connections. The assembly process involved placing the ESP32, GPS module, HMC5883L magnetometer, LM2596 buck converter, buzzer, and other necessary components onto the board according to the designed layout. After assembly, the PCB was inspected for soldering quality and electrical continuity before proceeding to system testing and integration.
+                 </p>
+                 <img src="images/finalconnection.jpg"
+                 alt="Final fabricated PCB for the AI Gig Rider Safety Platform showing copper tracks and mounted component layout">
+            <p>
+                Final Assembled PCB of the AI Gig Rider Safety Platform with ESP32, GPS Module, HMC5883L Magnetometer, and Power Supply Circuit.
+            </p>
+
+        </figure>
+
+        
+
+        
+    </section>
+
+    <section class="manufacture-process project-content-section telegram-procedure">
+        <h2>Telegram Bot Integration Procedure</h2>
+
+        <ol>
+            <li>
+                <strong>Create the Telegram bot.</strong>
+                Use Telegram's official @BotFather, send <code>/newbot</code>,
+                choose a bot name, and register the username
+                <code>AI_GIG_SAFETY_RIDER</code>. BotFather generates a token
+                for the ESP32 connection; keep it private.
+            </li>
+            <li>
+                <strong>Open the bot.</strong>
+                Find <code>AI_GIG_SAFETY_RIDER</code> in Telegram and select
+                Start to initialize the chat that will receive system messages.
+            </li>
+            <li>
+                <strong>Configure the bot credentials in the code.</strong>
+                Set the Telegram bot token and recipient chat ID in the ESP32
+                program, and include the Telegram and networking libraries
+                required to communicate with the Telegram Bot API. Keep the
+                actual token private; the published code below uses placeholders.
+            </li>
+            <li>
+                <strong>Integrate incident and location messages.</strong>
+                When the configured safety-detection condition is triggered,
+                the ESP32 reads the rider's GPS coordinates from the NEO-6M,
+                creates a Google Maps link, and sends the incident details and
+                location to the configured Telegram chat through the bot.
+            </li>
+            <li>
+                <strong>Test Telegram notifications.</strong>
+                After uploading the program, test the system under controlled
+                conditions. Confirm that the configured Telegram chat receives
+                the incident message and GPS location link when the alert
+                condition is triggered.
+            </li>
+            <li>
+                <strong>Complete the Telegram integration.</strong>
+                Telegram provides a remote channel for incident notifications
+                and location sharing, alongside the Adafruit IO dashboard for
+                monitoring the data configured for the project.
+            </li>
+        </ol>
+        <div class="telegram-image">
+            <img src="images/telegram1.jpg"
+                 alt="Telegram BotFather bot-creation conversation with the bot token hidden">
+        </div>
+        <div class="telegram-image">
+            <img src="images/telegarm2.jpg"
+                 alt="Telegram bot showing rider safety alerts and GPS location messages">
+        </div>
+        
+
+    </section>
+
+    <section class="manufacture-process project-content-section adafruit-dashboard">
+        <h2>Adafruit IO Dashboard Development and Configuration</h2>
+
+        <p>
+            An IoT-based monitoring dashboard was developed using Adafruit IO
+            to monitor rider information, location-related data, and system
+            status. The <strong>Bike Safety Monitor</strong> dashboard provides
+            a centralized interface for viewing data published by the ESP32.
+        </p>
+
+        <h3>Procedure</h3>
+        <ol>
+            <li>
+                <strong>Create an Adafruit IO account and dashboard.</strong>
+                Open Adafruit IO in a web browser, go to the Dashboards section,
+                and create a dashboard named <em>Bike Safety Monitor</em>.
+            </li>
+            <li>
+                <strong>Configure data feeds.</strong>
+                Create feeds for the project title, rider name, contact number,
+                rider location, bike status, and safety indicator information.
+            </li>
+            <li>
+                <strong>Design the dashboard layout.</strong>
+                Add and arrange blocks for the project title, rider details,
+                contact information, rider status indicator, location map, and
+                system status panel to make the monitoring interface clear.
+            </li>
+            <li>
+                <strong>Integrate the ESP32 with Adafruit IO.</strong>
+                Configure the required Wi-Fi and Adafruit IO credentials in
+                the ESP32 program and use the corresponding feed keys to
+                publish available rider and system data.
+            </li>
+            <li>
+                <strong>Test and verify the dashboard.</strong>
+                Check cloud connectivity and confirm that published data is
+                available in the configured feeds and dashboard. Use the
+                dashboard alongside the Telegram bot for incident notifications
+                and Google Maps location links.
+            </li>
+        </ol>
+
+        <h3>Outcome</h3>
+        <p>
+            The <strong>Bike Safety Monitor</strong> dashboard provides a
+            centralized cloud-based interface for monitoring rider-related
+            information and system status. Its integration with the ESP32 and
+            Telegram bot supports remote monitoring and incident notification
+            for the AI Gig Rider Safety Platform.
+        </p>
+
+        <div class="adafruit-dashboard-gallery">
+            <figure>
+                <img src="images/adafruit-dashboard-setup.png"
+                     alt="Adafruit IO dashboard list showing the Bike Safety Monitor dashboard"
+                     loading="lazy">
+                <figcaption>Bike Safety Monitor dashboard created in Adafruit IO.</figcaption>
+            </figure>
+            <figure>
+                <img src="images/adafruit-dashboard-feeds.png"
+                     alt="Adafruit IO feeds configured for rider details, location, and bike safety status, with the phone number hidden"
+                     loading="lazy">
+                <figcaption>Configured rider information and safety data feeds. The contact number is hidden for privacy.</figcaption>
+            </figure>
+            <figure>
+                <img src="images/adafruit-dashboard-view.png"
+                     alt="Bike Safety Monitor dashboard showing rider information, safety status, map, and system status, with the phone number hidden"
+                     loading="lazy">
+                <figcaption>Dashboard layout with rider information, safety status, location map, and system status. The contact number is hidden for privacy.</figcaption>
+            </figure>
+        </div>
+    </section>
+
+
+    <section class="final-code-section project-content-section">
+       
+            <h2 style="margin-bottom: 24px;">Final Arduino Code Used in the Project</h2>
+        <p class="code-note">Replace the Wi-Fi credentials, Adafruit IO credentials, Telegram bot token, and chat ID before uploading this code to the ESP32.</p>
+        <pre class="final-code-block"><code>#include &lt;Wire.h&gt;
+#include &lt;QMC5883LCompass.h&gt;
+#include &lt;WiFi.h&gt;
+#include &lt;WiFiClientSecure.h&gt;
+#include &lt;UniversalTelegramBot.h&gt;
+#include &lt;ArduinoJson.h&gt;
+#include &lt;TinyGPSPlus.h&gt;
+#include "Adafruit_MQTT.h"
+#include "Adafruit_MQTT_Client.h"
+
+// =====================================================
+// DEVICE CONFIGURATION & IDENTIFIER
+// =====================================================
+#define DEVICE_ID "BIKE-TRACK-001"
+
+// =====================================================
+// QMC5883L ACCELERATION / SHAKE SENSOR
+// =====================================================
+QMC5883LCompass compass;
+#define LED_PIN 2
+#define BUZZER 14
+#define SHAKE_THRESHOLD 800
+
+int previousX, previousY, previousZ;
+int currentX = 0, currentY = 0, currentZ = 0;
+
+// =====================================================
+// WiFi (Mobile Hotspot or Router)
+// =====================================================
+const char* ssid = "YOUR_WIFI_SSID";
+const char* password = "YOUR_WIFI_PASSWORD";
+
+// =====================================================
+// ADAFRUIT IO CLOUD CREDENTIALS & MQTT
+// =====================================================
+#define AIO_SERVER      "io.adafruit.com"
+#define AIO_SERVERPORT  1883
+#define AIO_USERNAME    "YOUR_ADAFRUIT_USERNAME"
+#define AIO_KEY         "YOUR_ADAFRUIT_IO_KEY"
+
+WiFiClient mqttClient;
+Adafruit_MQTT_Client mqtt(&mqttClient, AIO_SERVER, AIO_SERVERPORT, AIO_USERNAME, AIO_KEY);
+
+Adafruit_MQTT_Publish locationFeed = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/bike-location/csv");
+Adafruit_MQTT_Publish statusFeed   = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/bike-status");
+
+// =====================================================
+// TELEGRAM ALERT CONFIGURATION
+// =====================================================
+#define BOTtoken "YOUR_TELEGRAM_BOT_TOKEN"
+#define CHAT_ID "YOUR_CHAT_ID"
+
+WiFiClientSecure client;
+UniversalTelegramBot bot(BOTtoken, client);
+
+// =====================================================
+// GPS CONFIGURATION (HardwareSerial 2)
+// =====================================================
+#define GPS_RX 16
+#define GPS_TX 17
+TinyGPSPlus gps;
+HardwareSerial GPS_Serial(2);
+
+// =====================================================
+// TIMERS & ACCIDENT VARIABLES
+// =====================================================
+unsigned long lastBotCheckTime = 0;
+const unsigned long botRequestInterval = 1000;
+
+unsigned long lastCloudPushTime = 0;
+const unsigned long cloudPushInterval = 3000;
+
+bool accidentDetected = false;
+unsigned long accidentTime = 0;
+
+// =====================================================
+// MQTT CONNECT & KEEP-ALIVE
+// =====================================================
+void MQTT_connect() {
+  int8_t ret;
+  if (mqtt.connected()) return;
+
+  Serial.print("Connecting to Adafruit Cloud... ");
+  uint8_t retries = 3;
+  while ((ret = mqtt.connect()) != 0) {
+    Serial.println(mqtt.connectErrorString(ret));
+    Serial.println("Retrying cloud MQTT in 5 seconds...");
+    mqtt.disconnect();
+    delay(5000);
+    retries--;
+    if (retries == 0) return;
+  }
+  Serial.println("Cloud Dashboard Connected!");
+}
+
+// =====================================================
+// SEND ACCIDENT NOTIFICATION TO TELEGRAM & CLOUD
+// =====================================================
+void sendAccidentLocation() {
+  Serial.println();
+  Serial.println("================================");
+  Serial.println("ACCIDENT DETECTED!");
+  Serial.println("Getting GPS location...");
+  Serial.println("================================");
+
+  unsigned long startTime = millis();
+  while (millis() - startTime &lt; 10000) {
+    while (GPS_Serial.available()) {
+      gps.encode(GPS_Serial.read());
+    }
+    if (gps.location.isValid()) break;
+    delay(10);
+  }
+
+  String alertMsg = "CRASH DETECTED | ID: " + String(DEVICE_ID);
+  statusFeed.publish(alertMsg.c_str());
+
+  String message = "🚨 *ACCIDENT DETECTED!*\n";
+  message += "🆔 Device ID: `" + String(DEVICE_ID) + "`\n";
+  message += "⚠️ Sudden movement registered by QMC5883L.\n\n";
+
+  if (gps.location.isValid()) {
+    double latitude = gps.location.lat();
+    double longitude = gps.location.lng();
+    String mapsLink = "https://maps.google.com/?q=" + String(latitude, 6) + "," + String(longitude, 6);
+
+    message += "📍 *Location:*\n";
+    message += "Latitude: " + String(latitude, 6) + "\n";
+    message += "Longitude: " + String(longitude, 6) + "\n\n";
+    message += "🗺️ *Google Maps Link:*\n" + mapsLink;
+  } else {
+    message += "❌ GPS location fix not available yet.";
+  }
+
+  bool sent = bot.sendMessage(CHAT_ID, message, "Markdown");
+  if (sent) {
+    Serial.println("Telegram accident message sent successfully!");
+  } else {
+    Serial.println("Failed to send Telegram message!");
+  }
+}
+
+// =====================================================
+// HANDLE INCOMING TELEGRAM COMMANDS
+// =====================================================
+void handleNewMessages(int numNewMessages) {
+  for (int i = 0; i &lt; numNewMessages; i++) {
+    String chat_id = String(bot.messages[i].chat_id);
+    if (chat_id != CHAT_ID) {
+      bot.sendMessage(chat_id, "Unauthorized access.", "");
+      continue;
+    }
+
+    String text = bot.messages[i].text;
+
+    if (text == "/status" || text == "/start") {
+      String status = "🟢 *Bike Safety System*\n";
+      status += "🆔 Device ID: `" + String(DEVICE_ID) + "`\n";
+      status += "📡 WiFi: " + String((WiFi.status() == WL_CONNECTED) ? "CONNECTED" : "DISCONNECTED") + "\n";
+      status += "☁️ Cloud Broker: " + String(mqtt.connected() ? "ONLINE" : "OFFLINE") + "\n";
+      status += "🛰️ GPS Fix: " + String(gps.location.isValid() ? "LOCKED" : "SEARCHING...") + "\n";
+      status += "📊 Live Dashboard: https://io.adafruit.com/" + String(AIO_USERNAME) + "/dashboards";
+
+      bot.sendMessage(chat_id, status, "Markdown");
+    }
+    else if (text == "/location") {
+      if (gps.location.isValid()) {
+        String msg = "📍 *Current Location:*\n";
+        msg += "https://maps.google.com/?q=" + String(gps.location.lat(), 6) + "," + String(gps.location.lng(), 6);
+        bot.sendMessage(chat_id, msg, "Markdown");
+      } else {
+        bot.sendMessage(chat_id, "⚠️ GPS fix searching satellites...", "");
+      }
+    }
+  }
+}
+
+// =====================================================
+// SETUP
+// =====================================================
+void setup() {
+  Serial.begin(115200);
+
+  Wire.begin(21, 22);
+  compass.init();
+  pinMode(BUZZER, OUTPUT);
+  pinMode(LED_PIN, OUTPUT);
+  digitalWrite(LED_PIN, LOW);
+  digitalWrite(BUZZER, LOW);
+  compass.read();
+  previousX = compass.getX();
+  previousY = compass.getY();
+  previousZ = compass.getZ();
+
+  GPS_Serial.begin(9600, SERIAL_8N1, GPS_RX, GPS_TX);
+
+  Serial.println();
+  Serial.print("Connecting to WiFi: ");
+  Serial.println(ssid);
+
+  WiFi.begin(ssid, password);
+  client.setInsecure();
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("\nWiFi Connected!");
+  Serial.print("IP Address: ");
+  Serial.println(WiFi.localIP());
+
+  bot.sendMessage(CHAT_ID, "🚀 *Tracker Online*\nDevice: `" + String(DEVICE_ID) + "`\nConnected to Cloud Dashboard.", "Markdown");
+}
+
+// =====================================================
+// MAIN LOOP
+// =====================================================
+void loop() {
+  while (GPS_Serial.available() &gt; 0) {
+    gps.encode(GPS_Serial.read());
+  }
+
+  compass.read();
+  currentX = compass.getX();
+  currentY = compass.getY();
+  currentZ = compass.getZ();
+
+  int changeX = abs(currentX - previousX);
+  int changeY = abs(currentY - previousY);
+  int changeZ = abs(currentZ - previousZ);
+
+  if (changeX &gt; SHAKE_THRESHOLD || changeY &gt; SHAKE_THRESHOLD || changeZ &gt; SHAKE_THRESHOLD) {
+    Serial.println("Strong movement detected! Triggering alert immediately...");
+
+    if (!accidentDetected) {
+      accidentDetected = true;
+      accidentTime = millis();
+
+      Serial.println();
+      Serial.println("============================");
+      Serial.println("!!! ACCIDENT DETECTED !!!");
+      Serial.println("============================");
+
+      sendAccidentLocation();
+    }
+  }
+
+  if (accidentDetected) {
+    if (millis() - accidentTime &lt; 10000) {
+      digitalWrite(LED_PIN, (millis() / 200) % 2);
+      digitalWrite(BUZZER, (millis() / 200) % 2);
+    } else {
+      digitalWrite(LED_PIN, LOW);
+      digitalWrite(BUZZER, LOW);
+      accidentDetected = false;
+      statusFeed.publish("NORMAL");
+    }
+  }
+
+  previousX = currentX;
+  previousY = currentY;
+  previousZ = currentZ;
+
+  MQTT_connect();
+
+  if (millis() - lastCloudPushTime &gt; cloudPushInterval) {
+    lastCloudPushTime = millis();
+
+    if (gps.location.isValid()) {
+      float speed = gps.speed.isValid() ? gps.speed.kmph() : 0.0;
+      double lat = gps.location.lat();
+      double lng = gps.location.lng();
+      double alt = gps.altitude.isValid() ? gps.altitude.meters() : 0.0;
+
+      String csvData = String(speed, 1) + "," + String(lat, 6) + "," + String(lng, 6) + "," + String(alt, 1);
+      locationFeed.publish(csvData.c_str());
+
+      if (!accidentDetected) {
+        statusFeed.publish("TRACKING ACTIVE");
+      }
+    } else {
+      statusFeed.publish("GPS SEARCHING...");
+    }
+  }
+
+  if (millis() - lastBotCheckTime &gt; botRequestInterval) {
+    int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
+    while (numNewMessages) {
+      handleNewMessages(numNewMessages);
+      numNewMessages = bot.getUpdates(bot.last_message_received + 1);
+    }
+    lastBotCheckTime = millis();
+  }
+
+  delay(50);
+}</code></pre>
+    </section>
+
+    <section class="project-description project-content-section">
+        <h2>Project Implementation Repository</h2>
+        <p>
+            The complete project implementation files of the Saferide AI Gig Rider Safety Platform are available in a public GitHub repository. The repository includes the final working ESP32 source code and PCB Gerber files generated using EasyEDA for hardware fabrication.
+        </p>
+        <p>
+            <strong>GitHub Repository:</strong>
+            <a href="https://github.com/ppradeepkammar/safetron.git" target="_blank" rel="noopener noreferrer">https://github.com/ppradeepkammar/safetron.git</a>
+        </p>
+    </section>
+
+    <section class="visuals">
+        <h2 style="margin-bottom: 24px;">3D-Printed Enclosure Design</h2>
+        <div class="pcb-image">
+          <p>
+            After uploading the code and successfully verifying the working of the AI Gig Rider Safety Platform, the next stage involved designing a 3D-printed enclosure for the assembled PCB. The enclosure was planned to protect the electronic components, organize the hardware, and provide a compact structure for the overall system. Special consideration was given to the placement of the ESP32, GPS module, magnetometer, power supply connections, and other components to ensure accessibility and proper fitting. This step helps improve the project's physical appearance, component protection, and suitability for practical implementation.
+
+          </p>
+           <div class="pcb-video-container">
+
+        <video controls>
+            <source src="videos/3DDD.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+    </div>
+            <img src="images/safetron.jpg.jpeg"
+                 alt="Schematic diagram of the AI Gig Rider Safety Platform showing the ESP32, sensors, GSM module, and power supply connections"> 
+        </div>
+    </section>
+<section class="objectives-section project-content-section">
+        <h2>Advantages of the Project</h2>
+        <ol>
+            <li><strong>Real-Time Monitoring:</strong> Enables monitoring of rider status and location through an Adafruit IO dashboard.</li>
+            <li><strong>Location Tracking:</strong> Uses the NEO-6M GPS module to obtain geographical coordinates.</li>
+            <li><strong>Instant Notifications:</strong> Sends Telegram alerts when the programmed sensor threshold is exceeded.</li>
+            <li><strong>Local Alert Indication:</strong> Uses a buzzer and LED to indicate a possible incident.</li>
+            <li><strong>Remote Accessibility:</strong> Allows designated users to receive alert messages and location links through the internet.</li>
+            <li><strong>Compact Design:</strong> Integrates the main electronic components on a custom PCB inside a protective enclosure.</li>
+            <li><strong>Cost-Effective Prototype:</strong> Uses commonly available components such as the ESP32, GPS module, and magnetometer.</li>
+            <li><strong>IoT Integration:</strong> Combines embedded hardware, GPS data, Telegram messaging, and cloud-based monitoring in one system.</li>
+        </ol>
+    </section>
+
+    <section class="objectives-section project-content-section">
+        <h2>Applications of the Project</h2>
+        <ol>
+            <li><strong>Delivery Rider Safety:</strong> Can support the monitoring of food and parcel delivery riders.</li>
+            <li><strong>Gig Worker Monitoring:</strong> Can be adapted for workers who travel alone for field-service and delivery activities.</li>
+            <li><strong>Two-Wheeler Safety Projects:</strong> Can be used as a prototype for studying sensor-based incident alerts in motorcycles and scooters.</li>
+            <li><strong>Fleet Monitoring:</strong> Can be extended for monitoring the status and location of multiple riders.</li>
+            <li><strong>Emergency Location Sharing:</strong> Can share GPS-based location information with designated contacts when a possible incident is detected.</li>
+            <li><strong>IoT-Based Safety Systems:</strong> Can serve as an educational platform for developing connected safety-monitoring applications.</li>
+            <li><strong>Embedded Systems Research:</strong> Can be used to study sensor thresholds, GPS interfacing, wireless communication, and cloud dashboards.</li>
+        </ol>
+    </section>
+
+    <section class="project-description project-content-section">
+        <h2> Conclusion</h2>
+        <p>
+            The SAFETRON AI Gig Rider Safety Platform is an IoT-based project developed to support the safety of gig workers and delivery riders. It uses an ESP32, a magnetometer, and a GPS module to monitor sensor readings and obtain location information. When a possible incident is detected, the system activates a buzzer and LED and sends alerts through Telegram. The Adafruit IO dashboard helps monitor rider status and location remotely. The project combines embedded systems, GPS, and IoT technologies to provide a cost-effective safety-monitoring prototype. Further testing and improvements are required to make the incident-detection system more reliable.
+        </p>
+    </section>
+
+    <a class="floating-back-button" href="major-projects.html" aria-label="Back to Projects">←</a>
+
+    <!-- =========================
+         IMAGE POPUP
+    ========================= -->
+    <div class="image-modal" id="imageModal" aria-hidden="true">
+        <span class="close-image" onclick="closeImage()" role="button" tabindex="0" aria-label="Close expanded image">&times;</span>
+        <img class="expanded-image" id="expandedImage" src="" alt="Expanded Image">
+    </div>
+
+    <!-- JAVASCRIPT -->
+
+    <script src="js/script.js"></script>
+    <script src="js/js/project-details.js"></script>
+
+
+</body>
+
+</html>
